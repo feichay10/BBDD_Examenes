@@ -63,3 +63,33 @@ d) Clientes que han alquilado el menos un vehiculo de cada categoria.
 e) Clientes que han alquilado en alguna oficina todos los vehiculos de alguna categoria.
 ```sql
 ```
+
+3) Responder en SQL a las siguientes consultas:
+a) Número de vehículos de la categoria C1 disponibles en la oficina O1.
+```sql
+SELECT COUNT(*)
+FROM DISPONIBILIDAD
+WHERE CAT = 'C1' AND CO = 'O1'
+```
+
+b) Importe medio total pagado por los clientes de la oficina O1.
+```sql
+SELECT AVG(SUM(PR))
+FROM DISPONIBILIDAD NATURAL JOIN ALQUILERES
+WHERE CO = 'O1'
+GROUP BY DNI
+```
+
+c) Clientes que siempre alquilan vehiculos de la categoria C1.
+```sql
+SELECT DNI
+FROM ALQUILERES NATURAL JOIN COCHES
+GROUP BY DNI, CAT
+HAVING COUNT(DISTINCT CAT) = 1 AND CAT = 'C1'
+```
+
+d) Oficinas que en un mismo dia han alquilado todos sus vehiculos disponibles.
+```sql
+SELECT CO
+FROM ALQUILERES A1
+WHERE (COUNT(*)) 
