@@ -1,0 +1,12 @@
+∃ -> Existe
+∄ -> No existe
+∀ -> Para todo
+∈ -> Pertenece
+∉ -> No pertenece
+¬ -> No
+≠ -> Diferente
+∧ -> Y
+∨ -> O
+∩ -> Intersección
+∪ -> Unión
+⊆ -> Subconjunto
