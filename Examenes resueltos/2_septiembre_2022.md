@@ -64,9 +64,16 @@ B = P(DNI) (ALQUILERES)
 P(DNI) (A / B)
 ```
 
-e) Clientes que han alquilado en alguna oficina todos los vehiculos de alguna categoria.
+e) Clientes que han alquilado en alguna oficina todos los vehiculos de alguna categoria.\
+**Formula**: $R(RA \ - \ RA (R \ \times \ TA - RTA))$
+
 ```sql
-p(DNI)(p(DNI, CAT)(ALQUILERES * COCHES) - p(DNI, CAT)(p(DNI)(ALQUILERES) x p(DNI, M, CAT)(ALQUILERES * COCHES) - p(DNI, M, CAT)(ALQUILERES * COCHES)))
+R = DNI
+T = M
+A = CAT
+
+P(DNI) (P(DNI, CAT)(ALQUILERES * COCHES) - P(DNI, CAT) (C))
+C = P(DNI) (ALQUILERES) x P(M, CAT) (ALQUILERES * COCHES) - P(DNI, M, CAT) (ALQUILERES * COCHES)
 ```
 
 ## 2. Responder en cálculo relacional de t-uplas y de dominio a las siguientes consultas:
