@@ -10,3 +10,4 @@
 ∩ -> Intersección
 ∪ -> Unión
 ⊆ -> Subconjunto
+
