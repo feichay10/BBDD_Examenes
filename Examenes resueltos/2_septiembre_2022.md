@@ -53,14 +53,14 @@ P(DNI) (A ∩ B)
 c) Oficina que alquila el vehículo M1 con menor precio
 ```sql
 A = B = S(M = 'M1') (DISPONIBILIDAD)
-C = P(CO) S((A.CO != B.CO) ^ (A.PR > B.PR)) (A x B)
+C = P(A.CO) S((A.CO != B.CO) ^ (A.PR > B.PR)) (A x B)
 P(CO) (A) - C
 ```
 
 d) Clientes que han alquilado el menos un vehiculo de cada categoria.
 ```sql
 A = P(DNI, CAT) (ALQUILERES * COCHES)
-B = P(DNI) (ALQUILERES)
+B = P(CAT) (ALQUILERES)
 P(DNI) (A / B)
 ```
 
