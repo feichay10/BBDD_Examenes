@@ -11,3 +11,8 @@
 ∪ -> Unión
 ⊆ -> Subconjunto
 
+¬(∃x∈A) = ∀x∉A // Negación de "Existe x en A" es "Para todo x no pertenece a A"
+¬(∀x∈A) = ∃x∉A // Negación de "Para todo x en A" es "Existe x no pertenece a A"
+
+Por ejemplo:
+¬(∃t2) ((t2[CA] = t1[CA]) ∧ (t2[CT] != 'T1')) = (∀t2) ((t2[CA] != t1[CA]) ∨ (t2[CT] = 'T1'))
