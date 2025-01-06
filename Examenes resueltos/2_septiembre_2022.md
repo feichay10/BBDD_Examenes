@@ -170,11 +170,11 @@ HAVING COUNT(DISTINCT CAT) = 1 AND CAT = 'C1'
 d) Oficinas que en un mismo dia han alquilado todos sus vehiculos disponibles.
 ```sql
 SELECT CO
-FROM ALQUILERES A1
+FROM ALQUILERES A
 GROUP BY CO, F
-HAVING COUNT(DISTINCT M) = (SELECT COUNT(*)
-                            FROM DISPONIBILIDAD D1
-                            WHERE D1.CO = A1.CO)
+HAVING COUNT(*) = (SELECT COUNT(*)
+                   FROM DISPONIBILIDAD D1
+                   WHERE D1.CO = A.CO)
 ```
 
 e) Oficinas tales que al menos el 40% de sus vehículos disponibles son de una misma categoría.
@@ -185,4 +185,32 @@ GROUP BY CO, CAT
 HAVING COUNT(*) >= 0.4 * (SELECT COUNT(*)
                           FROM DISPONIBILIDAD D1
                           WHERE D1.CO = DC.CO)
+```
+
+## 4. Responder en SQL a las siguientes peticiones:
+a) Crear una vista que indique para cada cliente y cada vehículo alquilado, el coste total abonado en la fecha de alquiler.
+```sql
+CREATE VIEW COSTE_TOTAL AS (
+  SELECT DNI, M, F, N * PR AS COSTE_TOTAL
+  FROM ALQUILERES NATURAL JOIN DISPONIBILIDAD
+  GROUP BY DNI, M, F
+);
+```
+
+b) Bonifica en un 10% el precio de alquiler de los vehículos de la categoría C1.
+```sql
+UPDATE DISPONIBILIDAD
+SET PR = PR * 0.9
+WHERE M IN (SELECT M
+            FROM COCHES
+            WHERE CAT = 'C1');
+```
+
+c) Impón que a partir de ahora el número mínimo de días de alquiler de los vehículos de la categoría C1 sea de 2 días en cualquier oficina.
+```sql
+ALTER TABLE ALQUILERES
+ADD CONSTRAINT MIN_DIAS_C1 CHECK (N >= 2)
+WHERE M IN (SELECT M
+            FROM COCHES
+            WHERE CAT = 'C1');
 ```
