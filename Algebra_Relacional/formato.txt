@@ -1,0 +1,9 @@
+El formato del algebra relacional, para los operadores, es el siguiente:
+- Proyeccion: P(L) (R) siendo L la columna y R la tabla.
+- Seleccion: S(F) (R) siendo F la condicion y R la tabla.
+- Union: R U S siendo R y S las tablas.
+- Interseccion: R ^ S siendo R y S las tablas.
+- Diferencia: R - S siendo R y S las tablas.
+- Producto Cartesiano: R x S siendo R y S las tablas.
+- Yunción Natural: R * S siendo R y S las tablas.
+- Cociente: R / S siendo R y S las tablas.
