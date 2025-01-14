@@ -142,13 +142,52 @@ Los triggers o disparadores son procedimientos almacenados que se ejecutan autom
   ```sql
   CREATE [OR REPLACE] TRIGGER nombre_trigger
   {BEFORE | AFTER} {DELETE | INSERT | UPDATE} [OF col1, col2, ...coln] ON nombre_tabla
+  [REFERENCING {NEW | OLD} [AS] new | old]
   [FOR EACH ROW [WHEN (condicion)]]
   [DECLARE]
+  
     -- VARIABLES LOCALES
   BEGIN
     -- CODIGO DEL TRIGGER
+    -- Consulta
   [EXCEPTION]
     -- MANEJO DE ERRORES
+  END;
+  /
+  ```
+
+  Ejemplo de trigger, fuerza a que si un dispositivo pasa a un estado "inactivo" su velocidad de transmisión sea NULL:
+  ```sql
+  CREATE TRIGGER trigger1
+  AFTER UPDATE OF E ON REDES
+  REFERENCING NEW AS new
+  FOR EACH ROW
+  WHEN :new.E = 'inactivo'
+  BEGIN
+    UPDATE REDES
+    SET V = NULL
+    WHERE (IR = :new.IR) AND (ID = :new.ID)
+  END;
+  /
+  ```
+
+  Ejemplo de trigger: Garantiza que el número de unidades cambiadas de un componente para un aparato, un mismo día, es menor o igual al número de unidades que tiene el aparato de ese componente.
+  ```sql
+  CREATE TRIGGER CheckUnidadesCambiadas
+  BEFORE INSERT OR UPDATE ON REPARACIONES
+  FOR EACH ROW
+  DECLARE
+    unidadesDisponibles INT;
+  BEGIN
+    -- Obtener el número de unidades del componente en el aparato
+    SELECT N INTO unidadesDisponibles
+    FROM APARATOS
+    WHERE IA = :new.IA AND IC = :new.IC;
+
+    -- Verificar que las unidades cambiadas (NS) no excedan las unidades disponibles
+    IF :new.NS > unidadesDisponibles THEN
+      RAISE_APPLICATION_ERROR(-20001, 'El número de unidades cambiadas no puede ser mayor que el número de unidades del aparato.');
+    END IF;
   END;
   /
   ```
