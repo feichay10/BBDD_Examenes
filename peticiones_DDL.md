@@ -36,6 +36,13 @@
   MODIFY nombre_columna tipo_dato;
   ```
 
+  `NOTA`: Si la columna a modificar tiene alguna condición de integridad referencial, se debe desactivar antes de modificar la columna y volver a activarla después de modificarla.
+
+  ```sql
+  ALTER TABLE nombre_tabla
+  [DISABLE | ENABLE] CONSTRAINT nombre_restriccion;
+  ```
+
 - Eliminar columna de una tabla:
   ```sql
   ALTER TABLE nombre_tabla
